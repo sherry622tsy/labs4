@@ -52,7 +52,7 @@ This test suite validates the CRUD operations of a simple Flask-based REST API f
 
 ---
 
-#### ✅ `test_delete_task`
+####  `test_delete_task`
 
 * **Purpose**: Delete an existing task by ID.
 * **Expected**: 200 OK on delete, then 404 Not Found on subsequent GET.
@@ -60,7 +60,7 @@ This test suite validates the CRUD operations of a simple Flask-based REST API f
 
 ---
 
-### ✅ Overall Status: `All 5 tests passed`
+###  Overall Status: `All 5 tests passed`
 
 ---
 
