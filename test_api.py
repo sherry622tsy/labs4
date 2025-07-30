@@ -1,11 +1,11 @@
 import unittest
 import json
-from app import app  # 导入你的 Flask 应用
+from app import app  # Import your Flask app
 
 class TaskApiTestCase(unittest.TestCase):
 
     def setUp(self):
-        # 设置 Flask 测试客户端
+        # Set up the Flask test client
         self.client = app.test_client()
         self.base_url = '/tasks'
 
@@ -32,7 +32,7 @@ class TaskApiTestCase(unittest.TestCase):
         self.assertEqual(data['data']['title'], 'Test Task')
 
     def test_get_single_task(self):
-        # 创建任务后获取其 ID
+        # Create a task and get its ID
         post_response = self.client.post(
             self.base_url,
             data=json.dumps({'title': 'Temp Task'}),
@@ -41,14 +41,14 @@ class TaskApiTestCase(unittest.TestCase):
         self.assertEqual(post_response.status_code, 201)
         task_id = post_response.get_json()['data']['id']
 
-        # 获取该任务
+        # Retrieve the task by ID
         response = self.client.get(f'{self.base_url}/{task_id}')
         self.assertEqual(response.status_code, 200)
         data = response.get_json()
         self.assertEqual(data['data']['id'], task_id)
 
     def test_update_task(self):
-        # 先创建一个任务
+        # First, create a task
         post_response = self.client.post(
             self.base_url,
             data=json.dumps({'title': 'Old Title'}),
@@ -56,7 +56,7 @@ class TaskApiTestCase(unittest.TestCase):
         )
         task_id = post_response.get_json()['data']['id']
         print(f'{self.base_url}/{task_id}')
-        # 更新该任务
+        # Update the task
         update_data = {'title': 'Updated Title', 'done': True}
         update_response = self.client.put(
             f'{self.base_url}/{task_id}',
@@ -69,7 +69,7 @@ class TaskApiTestCase(unittest.TestCase):
         self.assertTrue(data['data']['done'])
 
     def test_delete_task(self):
-        # 创建任务
+        # Create a task
         post_response = self.client.post(
             self.base_url,
             data=json.dumps({'title': 'Delete Me'}),
@@ -77,11 +77,11 @@ class TaskApiTestCase(unittest.TestCase):
         )
         task_id = post_response.get_json()['data']['id']
 
-        # 删除任务
+        # delete the task
         delete_response = self.client.delete(f'{self.base_url}/{task_id}')
         self.assertEqual(delete_response.status_code, 200)
 
-        # 确认任务已删除
+        # Confirm the task was deleted
         get_response = self.client.get(f'{self.base_url}/{task_id}')
         self.assertEqual(get_response.status_code, 404)
 
