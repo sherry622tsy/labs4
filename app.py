@@ -70,7 +70,7 @@ def update_task(task_id):
     task['done'] = request.json.get('done', task['done'])
     return make_response(True, 'Task updated', task)
 
-# DELETE /tasks/<task_id> - Delete a task by ID
+# DELETE /tasks/<task_id> - Delete task by ID
 @app.route('/tasks/<int:task_id>', methods=['DELETE'])
 def delete_task(task_id):
     global tasks
